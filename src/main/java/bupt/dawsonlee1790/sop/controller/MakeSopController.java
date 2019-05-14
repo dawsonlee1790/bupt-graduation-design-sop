@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/MakeSopController")
 public class MakeSopController {
 
-
     @Autowired
     public MakeSopService makeSopService;
 
