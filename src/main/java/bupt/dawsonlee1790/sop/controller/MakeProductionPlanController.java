@@ -1,8 +1,8 @@
 package bupt.dawsonlee1790.sop.controller;
 
-import bupt.dawsonlee1790.sop.dao.ProductionOrderRepository;
-import bupt.dawsonlee1790.sop.dao.ProductionPlanRepository;
-import bupt.dawsonlee1790.sop.dao.SopRepository;
+import bupt.dawsonlee1790.sop.repopsitory.ProductionOrderRepository;
+import bupt.dawsonlee1790.sop.repopsitory.ProductionPlanRepository;
+import bupt.dawsonlee1790.sop.repopsitory.SopRepository;
 import bupt.dawsonlee1790.sop.dto.MakePlanDTO;
 import bupt.dawsonlee1790.sop.entity.ProductionOrder;
 import bupt.dawsonlee1790.sop.entity.ProductionPlan;

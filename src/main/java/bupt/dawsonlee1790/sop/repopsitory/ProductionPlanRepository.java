@@ -1,4 +1,4 @@
-package bupt.dawsonlee1790.sop.dao;
+package bupt.dawsonlee1790.sop.repopsitory;
 
 import bupt.dawsonlee1790.sop.entity.ProductionPlan;
 import org.springframework.data.jpa.repository.JpaRepository;

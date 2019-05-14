@@ -1,6 +1,6 @@
 package bupt.dawsonlee1790.sop.controller;
 
-import bupt.dawsonlee1790.sop.dao.SopRepository;
+import bupt.dawsonlee1790.sop.repopsitory.SopRepository;
 import bupt.dawsonlee1790.sop.entity.Sop;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
