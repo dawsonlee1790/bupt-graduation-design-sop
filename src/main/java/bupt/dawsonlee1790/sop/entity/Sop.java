@@ -8,26 +8,26 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-@Entity
+@Entity // 1
 @Table(name = "sops")
-@JsonIgnoreProperties(value = {"id"}, allowGetters = true)
+@JsonIgnoreProperties(value = {"id"}, allowGetters = true) // 2
 public class Sop {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id // 3
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // 4
     private long id;
 
-    @NotBlank
+    @NotBlank // 5
     private String name;
 
-    @NotNull
+    @NotNull // 6
     private long number;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL) // 7
     private SopStep startStep;
 
-    @OneToMany(mappedBy = "sop")
-    @JsonIgnore
+    @OneToMany(mappedBy = "sop") // 8
+    @JsonIgnore // 9
     private List<ProductionPlan> productionPlanList;
 
     //========= setter getter ==========
