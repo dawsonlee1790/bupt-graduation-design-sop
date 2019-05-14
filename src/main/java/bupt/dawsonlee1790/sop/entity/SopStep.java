@@ -3,18 +3,20 @@ package bupt.dawsonlee1790.sop.entity;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
-@Entity
+@Entity // 1
 @Table(name = "sop_steps")
 public class SopStep {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id // 2
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // 3
     private long id;
     private String operationContent;
-    @NotBlank
+    @NotBlank // 4
     private String executor;
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.ALL) // 5
     private SopStep next;
+
+//  ========getter和setter=========
 
     public SopStep(){}
 
