@@ -35,6 +35,8 @@ public class ProductionPlan {
     @JsonIgnore
     private Sop sop;
 
+    // ======== getter setter ==========
+
     public Sop getSop() {
         return sop;
     }
