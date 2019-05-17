@@ -10,8 +10,6 @@ import bupt.dawsonlee1790.sop.repopsitory.ProductionPlanRepository;
 import bupt.dawsonlee1790.sop.repopsitory.SopRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @Service
 public class MakeProductionPlanService {
