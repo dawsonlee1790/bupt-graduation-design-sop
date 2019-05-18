@@ -1,5 +1,7 @@
 package bupt.dawsonlee1790.sop.controller;
 
+import bupt.dawsonlee1790.sop.certification.Actor;
+import bupt.dawsonlee1790.sop.certification.Role;
 import bupt.dawsonlee1790.sop.entity.Sop;
 import bupt.dawsonlee1790.sop.service.MakeSopService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +19,8 @@ public class MakeSopController {
     public MakeSopService makeSopService;
 
     @PutMapping("/make")
-    public void makeSop(@RequestBody @Validated  Sop sop) {
+    @Actor(Role.Planner)
+    public void makeSop(@RequestBody @Validated Sop sop) {
         makeSopService.makeSop(sop);
     }
 
