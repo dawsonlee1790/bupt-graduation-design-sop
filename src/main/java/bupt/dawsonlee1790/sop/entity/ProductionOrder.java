@@ -26,6 +26,7 @@ public class ProductionOrder {
     @OneToOne(cascade = CascadeType.ALL)
     private ProductionOrder next;
 
+    // ====== setter getter =========
     public long getId() {
         return id;
     }

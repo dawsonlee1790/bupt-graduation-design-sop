@@ -44,7 +44,7 @@ public class MakeProductionPlanService {
         ProductionOrder nextOrder = dfs(sopStep.getNext());
         ProductionOrder productionOrder = new ProductionOrder();
         productionOrder.setOperationContent(sopStep.getOperationContent());
-        productionOrder.setExecutor(sopStep.getExecutor());
+        productionOrder.setExecutor(sopStep.getExecutorGroup());
         productionOrder.setNext(nextOrder);
         productionOrderRepository.save(productionOrder);
         return productionOrder;

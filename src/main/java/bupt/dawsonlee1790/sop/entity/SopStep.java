@@ -12,7 +12,7 @@ public class SopStep {
     private long id;
     private String operationContent;
     @NotBlank // 4
-    private String executor;
+    private String executorGroup;
     @OneToOne(cascade = CascadeType.ALL) // 5
     private SopStep next;
 
@@ -21,7 +21,7 @@ public class SopStep {
     public SopStep(){}
 
     public SopStep(String operationContent,String executorGroup, SopStep next){
-        this.executor = executorGroup;
+        this.executorGroup = executorGroup;
         this.operationContent = operationContent;
         this.next = next;
     }
@@ -42,12 +42,12 @@ public class SopStep {
         this.operationContent = operationContent;
     }
 
-    public String getExecutor() {
-        return executor;
+    public String getExecutorGroup() {
+        return executorGroup;
     }
 
-    public void setExecutor(String executor) {
-        this.executor = executor;
+    public void setExecutorGroup(String executorGroup) {
+        this.executorGroup = executorGroup;
     }
 
     public SopStep getNext() {
