@@ -35,6 +35,15 @@ public class ProductionPlan {
     @JsonIgnore
     private Sop sop;
 
+    @OneToOne(cascade = CascadeType.ALL)
+    private ProductionOrder executingOrder;
+
+    public void goToNextOrder(){
+        executingOrder.setExecuteTime(new Date());
+        executingOrder = executingOrder.getNext();
+    }
+
+
     // ======== getter setter ==========
 
     public Sop getSop() {

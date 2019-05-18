@@ -1,29 +1,30 @@
 package bupt.dawsonlee1790.sop.controller;
 
-import bupt.dawsonlee1790.sop.repopsitory.ProductionOrderRepository;
-import bupt.dawsonlee1790.sop.entity.ProductionOrder;
+import bupt.dawsonlee1790.sop.entity.ProductionPlan;
+import bupt.dawsonlee1790.sop.service.ExecuteOrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.Date;
+import java.util.List;
 
 @Controller
 @RequestMapping("/ExecuteOrderController")
 public class ExecuteOrderController {
 
     @Autowired
-    private ProductionOrderRepository productionOrderRepository;
+    private ExecuteOrderService executeOrderService;
 
-    @GetMapping("/{orderId}")
-    public ProductionOrder find(@PathVariable("orderId") long orderId){
-        return productionOrderRepository.getOne(orderId);
+    @GetMapping("/")
+    public List<ProductionPlan> getPlanList() {
+        return executeOrderService.getPlanList();
     }
 
-    @PostMapping("/{orderId}")
-    public void executeOrder(@PathVariable("orderId") long orderId){
-        ProductionOrder productionOrder = productionOrderRepository.getOne(orderId);
-        productionOrder.setExecuteTime(new Date());
-        productionOrderRepository.save(productionOrder);
+    @PostMapping("/{planId}")
+    public void executeOrder(@PathVariable("planId") long planId) {
+        executeOrderService.executeOrder(planId);
     }
 }
