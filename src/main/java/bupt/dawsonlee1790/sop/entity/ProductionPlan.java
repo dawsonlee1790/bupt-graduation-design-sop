@@ -36,11 +36,40 @@ public class ProductionPlan {
     private Sop sop;
 
     @OneToOne(cascade = CascadeType.ALL)
-    private ProductionOrder executingOrder;
+    private ProductionOrder executedOrder;
 
-    public void goToNextOrder(){
-        executingOrder.setExecuteTime(new Date());
-        executingOrder = executingOrder.getNext();
+    private boolean isExceptioin;
+
+
+    public void goToNextOrder() throws Exception {
+        if(!isExceptioin) throw new Exception("生产批次计划在异常状态，请等待生产责任人处理");
+        executedOrder = executedOrder.getNext();
+        executedOrder.setExecuteTime(new Date());
+    }
+
+    public void reportException(String operationContent, String executorGroup, String executor) {
+        ProductionOrder exceptionOrder = new ProductionOrder();
+        exceptionOrder.setOperationContent(operationContent);
+        exceptionOrder.setExecutorGroup(executorGroup);
+        exceptionOrder.setExecutor(executor);
+        exceptionOrder.setExecuteTime(new Date());
+        ProductionOrder productionOrder = executedOrder.getNext();
+        exceptionOrder.setNext(productionOrder);
+        executedOrder.setNext(exceptionOrder);
+        executedOrder = exceptionOrder;
+        isExceptioin = true;
+    }
+
+    public enum PlanStatus{
+        Approve("批准"),
+        NotApprove("不批准"),
+        WaittingReview("待审核");
+
+        private String value;
+
+        PlanStatus(String value) {
+            this.value = value;
+        }
     }
 
 
@@ -116,5 +145,21 @@ public class ProductionPlan {
 
     public void setStartOrder(ProductionOrder startOrder) {
         this.startOrder = startOrder;
+    }
+
+    public ProductionOrder getExecutedOrder() {
+        return executedOrder;
+    }
+
+    public void setExecutedOrder(ProductionOrder executedOrder) {
+        this.executedOrder = executedOrder;
+    }
+
+    public boolean isExceptioin() {
+        return isExceptioin;
+    }
+
+    public void setExceptioin(boolean exceptioin) {
+        isExceptioin = exceptioin;
     }
 }

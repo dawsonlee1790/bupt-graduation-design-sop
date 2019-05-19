@@ -17,7 +17,7 @@ public class ExecuteOrderService {
         return productionPlanRepository.findAll();
     }
 
-    public void executeOrder(long planId) {
+    public void executeOrder(long planId) throws Exception {
         ProductionPlan productionPlan = productionPlanRepository.findById(planId).get();
         productionPlan.goToNextOrder();
         productionPlanRepository.save(productionPlan);

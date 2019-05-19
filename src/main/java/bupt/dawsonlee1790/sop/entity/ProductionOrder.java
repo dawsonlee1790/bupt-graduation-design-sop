@@ -19,6 +19,8 @@ public class ProductionOrder {
     private long id;
     @NotBlank
     private String operationContent;
+    @NotBlank
+    private String executorGroup;
     private String executor;
     @Temporal(TemporalType.TIME)
     @LastModifiedDate
@@ -65,5 +67,13 @@ public class ProductionOrder {
 
     public void setNext(ProductionOrder next) {
         this.next = next;
+    }
+
+    public String getExecutorGroup() {
+        return executorGroup;
+    }
+
+    public void setExecutorGroup(String executorGroup) {
+        this.executorGroup = executorGroup;
     }
 }
