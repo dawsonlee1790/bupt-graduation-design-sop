@@ -1,5 +1,6 @@
 package bupt.dawsonlee1790.sop;
 
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Assert;
 import org.junit.Before;
@@ -38,6 +39,10 @@ public class SopApplicationTests {
     public void contextLoads() throws Exception {
         this.makeSop();
         this.makeProductionPlan();
+        this.reviewPlan();
+        this.executeOrder();
+        this.reportException();
+        this.handleException();
     }
 
 
@@ -76,6 +81,50 @@ public class SopApplicationTests {
         Assert.assertEquals(200, mvcResult.getResponse().getStatus());
     }
 
+    private void reviewPlan() throws Exception {
+//         "/ReviewPlanController/{planId}/review";
+        String reviewUrl = "/ReviewPlanController/1/review";
+        //language=JSON
+        String content = "true";
+        MvcResult reviewResult = post(reviewUrl, content);
+        Assert.assertEquals(200, reviewResult.getResponse().getStatus());
+//         "/ReviewPlanController/{planId}";
+        String getPlanUrl = "/ReviewPlanController/1";
+        MvcResult getPlanResult = get(getPlanUrl);
+        String responseBody = getPlanResult.getResponse().getContentAsString();
+        JsonNode plan = mapper.readTree(responseBody);
+        Assert.assertEquals("批准", plan.get("status").asText());
+    }
+
+    private void executeOrder() throws Exception {
+        String planListUrl = "/ExecuteOrderController/";
+        MvcResult planListResult = get(planListUrl);
+        Assert.assertEquals(200, planListResult.getResponse().getStatus());
+        Assert.assertNotEquals("", planListResult.getResponse().getContentAsString());
+
+        String executeOrderUrl = "/ExecuteOrderController/1";
+        MvcResult executeResult = post(executeOrderUrl, "");
+        Assert.assertEquals(200, executeResult.getResponse().getStatus());
+    }
+
+    private void reportException() throws Exception {
+        String url = "/ReportExceptionController/report/1";
+        String content = "车间玉米粉量却100千克";
+        MvcResult result = post(url, content);
+        Assert.assertEquals(200, result.getResponse().getStatus());
+    }
+
+    private void handleException() throws Exception {
+        String url = "/HandleExceptionController/1";
+        //language=JSON
+        String content = "{\n" +
+                "  \"content\": \"请去仓库4拿100千克玉米粉\",\n" +
+                "  \"executorGroup\": \"Forklift\"\n" +
+                "}";
+        MvcResult result = post(url, content);
+        Assert.assertEquals(200, result.getResponse().getStatus());
+    }
+
     private MvcResult put(String url, String content) throws Exception {
         return mockMvc.perform(
                 MockMvcRequestBuilders.put(url).content(content).contentType(MediaType.APPLICATION_JSON)
@@ -90,7 +139,7 @@ public class SopApplicationTests {
 
     private MvcResult get(String url) throws Exception {
         return mockMvc.perform(
-                MockMvcRequestBuilders.post(url).contentType(MediaType.APPLICATION_JSON)
+                MockMvcRequestBuilders.get(url).contentType(MediaType.APPLICATION_JSON)
         ).andReturn();
     }
 

@@ -25,7 +25,7 @@ public class MakeProductionPlanService {
     private ProductionOrderRepository productionOrderRepository;
 
     public void makePlan(MakePlanDTO makePlanDTO) {
-        Sop sop = sopRepository.getOne(makePlanDTO.getSopId());
+        Sop sop = sopRepository.findById(makePlanDTO.getSopId()).get();
         ProductionPlan productionPlan = new ProductionPlan();
         productionPlan.setName(makePlanDTO.getPlanName());
         productionPlan.setNumber(makePlanDTO.getNumber());
@@ -39,8 +39,7 @@ public class MakeProductionPlanService {
     }
 
     private ProductionOrder dfs(SopStep sopStep) {
-        SopStep next = sopStep.getNext();
-        if (next == null) return null;
+        if (sopStep == null) return null;
         ProductionOrder nextOrder = dfs(sopStep.getNext());
         ProductionOrder productionOrder = new ProductionOrder();
         productionOrder.setOperationContent(sopStep.getOperationContent());

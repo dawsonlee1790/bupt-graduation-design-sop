@@ -43,6 +43,8 @@ public class ProductionPlan {
 
     public void goToNextOrder() throws Exception {
         if(isException) throw new Exception("生产批次计划在异常状态，请等待生产责任人处理");
+        if(executedOrder == null) executedOrder = startOrder;
+        if(executedOrder.getNext() == null) throw new Exception("生产批次计划已经完成，没有下一个生产指令了");
         executedOrder = executedOrder.getNext();
         executedOrder.setExecuteTime(new Date());
     }
@@ -63,6 +65,7 @@ public class ProductionPlan {
     public void handleException(String content,String executorGroup){
         // 生产责任人处理异常的记录
         ProductionOrder handleOrder = new ProductionOrder();
+        handleOrder.setOperationContent("处理生产过程异常");
         handleOrder.setExecutorGroup("ProductionLeader");
         handleOrder.setExecutor(responsible);
         handleOrder.setExecuteTime(new Date());
