@@ -4,11 +4,13 @@ import bupt.dawsonlee1790.sop.certification.Actor;
 import bupt.dawsonlee1790.sop.certification.Role;
 import bupt.dawsonlee1790.sop.dto.HandleEDTO;
 import bupt.dawsonlee1790.sop.service.HandleExceptionPlanService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/HandleExceptionController")
+@Api(tags = "处理生产过程异常")
 public class HandleExceptionController {
 
     @Autowired

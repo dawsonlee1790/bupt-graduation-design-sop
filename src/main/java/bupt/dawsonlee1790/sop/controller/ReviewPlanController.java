@@ -4,6 +4,7 @@ import bupt.dawsonlee1790.sop.certification.Actor;
 import bupt.dawsonlee1790.sop.certification.Role;
 import bupt.dawsonlee1790.sop.entity.ProductionPlan;
 import bupt.dawsonlee1790.sop.service.ReviewPlanService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -11,6 +12,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/ReviewPlanController")
+@Api(tags = "审核生产批次计划")
 public class ReviewPlanController {
 
     @Autowired

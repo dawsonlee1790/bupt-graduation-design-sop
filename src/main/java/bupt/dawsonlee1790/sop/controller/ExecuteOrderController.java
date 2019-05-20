@@ -4,6 +4,7 @@ import bupt.dawsonlee1790.sop.certification.Actor;
 import bupt.dawsonlee1790.sop.certification.Role;
 import bupt.dawsonlee1790.sop.entity.ProductionPlan;
 import bupt.dawsonlee1790.sop.service.ExecuteOrderService;
+import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/ExecuteOrderController")
+@Api(tags = "执行生产指令")
 public class ExecuteOrderController {
 
     @Autowired
