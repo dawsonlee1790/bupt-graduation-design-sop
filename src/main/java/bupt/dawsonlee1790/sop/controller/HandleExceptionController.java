@@ -1,7 +1,9 @@
 package bupt.dawsonlee1790.sop.controller;
 
-import bupt.dawsonlee1790.sop.repopsitory.ProductionOrderRepository;
-import bupt.dawsonlee1790.sop.entity.ProductionOrder;
+import bupt.dawsonlee1790.sop.certification.Actor;
+import bupt.dawsonlee1790.sop.certification.Role;
+import bupt.dawsonlee1790.sop.dto.HandleEDTO;
+import bupt.dawsonlee1790.sop.service.HandleExceptionPlanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -14,17 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class HandleExceptionController {
 
     @Autowired
-    private ProductionOrderRepository productionOrderRepository;
+    private HandleExceptionPlanService handleExceptionPlanService;
 
-    @PostMapping("/{orderId}")
-    public void report(@PathVariable("orderId") long orderId, @RequestBody ProductionOrder content) {
-        ProductionOrder exceptionOrder = productionOrderRepository.getOne(orderId);
-        ProductionOrder productionOrder = new ProductionOrder();
-        productionOrder.setOperationContent(content.getOperationContent());
-        productionOrder.setNext(productionOrder.getNext());
-        productionOrder.setExecutor(content.getExecutor());
-        productionOrderRepository.save(productionOrder);
-        exceptionOrder.setNext(productionOrder);
-        productionOrderRepository.save(exceptionOrder);
+    @PostMapping("/{planId}")
+    @Actor(Role.ProductionLeader)
+    public void handleEPlan(@PathVariable("planId") long planId, @RequestBody HandleEDTO handleEDTO) {
+        handleExceptionPlanService.handleEPlan(planId, handleEDTO.getContent(), handleEDTO.getExecutorGroup());
     }
 }

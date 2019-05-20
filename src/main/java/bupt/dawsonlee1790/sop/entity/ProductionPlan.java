@@ -28,7 +28,7 @@ public class ProductionPlan {
     @Temporal(TemporalType.DATE)
     private Date planningEndDate;
     @NotNull
-    private long responsible;
+    private String responsible;
     @OneToOne(cascade = CascadeType.ALL)
     private ProductionOrder startOrder;
     @OneToOne(cascade = CascadeType.ALL)
@@ -58,6 +58,30 @@ public class ProductionPlan {
         executedOrder.setNext(exceptionOrder);
         executedOrder = exceptionOrder;
         isExceptioin = true;
+    }
+
+    public void handleException(String content,String executorGroup){
+        // 生产责任人处理异常的记录
+        ProductionOrder handleOrder = new ProductionOrder();
+        handleOrder.setExecutorGroup("ProductionLeader");
+        handleOrder.setExecutor(responsible);
+        handleOrder.setExecuteTime(new Date());
+
+        // 根据处理意见创建的生产指令
+        ProductionOrder newOrder = new ProductionOrder();
+        newOrder.setExecutorGroup(executorGroup);
+        newOrder.setOperationContent(content);
+
+        // 等待处理的生产指令
+        ProductionOrder tempOrder = executedOrder.getNext();
+
+        executedOrder.setNext(handleOrder);
+        handleOrder.setNext(newOrder);
+        newOrder.setNext(tempOrder);
+
+        executedOrder = handleOrder;
+
+        isExceptioin = false;
     }
 
     public enum PlanStatus{
@@ -131,11 +155,11 @@ public class ProductionPlan {
         this.planningEndDate = planningEndDate;
     }
 
-    public long getResponsible() {
+    public String getResponsible() {
         return responsible;
     }
 
-    public void setResponsible(long responsible) {
+    public void setResponsible(String responsible) {
         this.responsible = responsible;
     }
 
