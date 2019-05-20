@@ -1,6 +1,6 @@
 package bupt.dawsonlee1790.sop.components;
 
-import com.fasterxml.jackson.core.type.TypeReference;
+import bupt.dawsonlee1790.sop.certification.Role;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -22,7 +22,7 @@ public class User {
     @Autowired
     private HttpServletRequest httpServletRequest;
 
-    private ObjectMapper objectMapper;
+    private ObjectMapper objectMapper = new ObjectMapper();
 
 
     private Key generateKey() {
@@ -31,25 +31,26 @@ public class User {
         return key;
     }
 
-    public List<String> getGroupList() throws IOException {
-        List<String> list =new ArrayList<String>();
-        list.add("Planner");
-        list.add("Researcher");
-        list.add("Forklift");
-        list.add("WorkshopManager");
-        list.add("ProductionLeader ");
-        return list;
-//        String jwtToken = httpServletRequest.getHeader(AUTHORIZATION);
-//        Claims claims = Jwts.parser().setSigningKey(generateKey()).parseClaimsJwt(jwtToken).getBody();
-//        String text = claims.get("Role", String.class);
-//        return objectMapper.readValue(text, new TypeReference<List<String>>(){});
+    public List<Role> getGroupList() throws IOException {
+        String jwtToken = httpServletRequest.getHeader(AUTHORIZATION);
+        Claims claims = Jwts.parser().setSigningKey(generateKey()).parseClaimsJws(jwtToken).getBody();
+        List<String> text = claims.get("Role", ArrayList.class);
+        List<Role> roles = new ArrayList<>();
+        text.forEach(it -> {
+            if (it.equals(Role.Forklift.name())) roles.add(Role.Forklift);
+            else if (it.equals(Role.WorkshopManager.name())) roles.add(Role.WorkshopManager);
+            else if (it.equals(Role.Researcher.name())) roles.add(Role.Researcher);
+            else if (it.equals(Role.Planner.name())) roles.add(Role.Planner);
+            else if (it.equals(Role.ProductionLeader.name())) roles.add(Role.ProductionLeader);
+        });
+        return roles;
+//        return objectMapper.readValue(text.toString(), new TypeReference<List<Role>>() {});
     }
 
     public String getUserName() {
-        return "Dawson";
-//        String jwtToken = httpServletRequest.getHeader(AUTHORIZATION);
-//        Claims claims = Jwts.parser().setSigningKey(generateKey()).parseClaimsJwt(jwtToken).getBody();
-//        return claims.get("UserName", String.class);
+        String jwtToken = httpServletRequest.getHeader(AUTHORIZATION);
+        Claims claims = Jwts.parser().setSigningKey(generateKey()).parseClaimsJws(jwtToken).getBody();
+        return claims.get("UserName", String.class);
     }
 
 }

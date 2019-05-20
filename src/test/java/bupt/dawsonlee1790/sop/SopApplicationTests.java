@@ -29,6 +29,9 @@ public class SopApplicationTests {
 
     private ObjectMapper mapper;
 
+    // jwt 要实时更新
+    private String JWT = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI2IiwiaXNzIjoiaHR0cDovL3VzZXItZGV2LmRlYnVneWEuY246MzAwODAvVXNlckNvbnRyb2xsZXIvbG9naW4iLCJpYXQiOjE1NTgzNzc5MzIsImV4cCI6MTU1ODM3OTczMiwiSG9zdE5hbWUiOiJ1c2VyLWRldi01Yjg4OWM5Njc2LXdsZmp2IiwiSG9zdEFkZHJlc3MiOiIxMC4yNDQuMy4zNSIsIlJvbGUiOlsiUGxhbm5lciIsIlJlc2VhcmNoZXIiLCJGb3JrbGlmdCIsIldvcmtzaG9wTWFuYWdlciIsIlByb2R1Y3Rpb25MZWFkZXIiXX0.BH1Exedg3Up5ysk3IXY1BkFECsfPEal7-ornrVGf_oVOC9QDg_zTDk3ELknDVGSOMTXbKEgayLbldEWzBM4zfA";
+
     @Before
     public void init() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
@@ -127,19 +130,30 @@ public class SopApplicationTests {
 
     private MvcResult put(String url, String content) throws Exception {
         return mockMvc.perform(
-                MockMvcRequestBuilders.put(url).content(content).contentType(MediaType.APPLICATION_JSON)
+                MockMvcRequestBuilders
+                        .put(url)
+                        .header("AUTHORIZATION", JWT)
+                        .content(content)
+                        .contentType(MediaType.APPLICATION_JSON)
         ).andReturn();
     }
 
     private MvcResult post(String url, String content) throws Exception {
         return mockMvc.perform(
-                MockMvcRequestBuilders.post(url).content(content).contentType(MediaType.APPLICATION_JSON)
+                MockMvcRequestBuilders
+                        .post(url)
+                        .header("AUTHORIZATION", JWT)
+                        .content(content)
+                        .contentType(MediaType.APPLICATION_JSON)
         ).andReturn();
     }
 
     private MvcResult get(String url) throws Exception {
         return mockMvc.perform(
-                MockMvcRequestBuilders.get(url).contentType(MediaType.APPLICATION_JSON)
+                MockMvcRequestBuilders
+                        .get(url)
+                        .header("AUTHORIZATION", JWT)
+                        .contentType(MediaType.APPLICATION_JSON)
         ).andReturn();
     }
 
