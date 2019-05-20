@@ -5,13 +5,9 @@ import bupt.dawsonlee1790.sop.certification.Role;
 import bupt.dawsonlee1790.sop.dto.HandleEDTO;
 import bupt.dawsonlee1790.sop.service.HandleExceptionPlanService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
-@Controller
+@RestController
 @RequestMapping("/HandleExceptionController")
 public class HandleExceptionController {
 

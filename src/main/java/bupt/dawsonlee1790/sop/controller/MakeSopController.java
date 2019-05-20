@@ -5,13 +5,13 @@ import bupt.dawsonlee1790.sop.certification.Role;
 import bupt.dawsonlee1790.sop.entity.Sop;
 import bupt.dawsonlee1790.sop.service.MakeSopService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+@RestController
 @RequestMapping("/MakeSopController")
 public class MakeSopController {
 

@@ -5,12 +5,11 @@ import bupt.dawsonlee1790.sop.certification.Role;
 import bupt.dawsonlee1790.sop.entity.ProductionPlan;
 import bupt.dawsonlee1790.sop.service.ReviewPlanService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/ReviewPlanController")
 public class ReviewPlanController {
 
@@ -32,7 +31,7 @@ public class ReviewPlanController {
     @PostMapping("/{planId}/review")
     @Actor(Role.ProductionLeader)
     public void reviewPlan(@PathVariable("planId") long planId, @RequestBody boolean flag) {
-        reviewPlanService.reviewPlan(planId,flag);
+        reviewPlanService.reviewPlan(planId, flag);
     }
 
 }
