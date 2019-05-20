@@ -23,7 +23,7 @@ public class ProductionOrder {
     private String executorGroup;
     private String executor;
     @Temporal(TemporalType.TIME)
-    @LastModifiedDate
+//    @LastModifiedDate
     private Date executeTime;
     @OneToOne(cascade = CascadeType.ALL)
     private ProductionOrder next;
