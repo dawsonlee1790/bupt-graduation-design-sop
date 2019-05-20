@@ -18,7 +18,7 @@ public class ReviewPlanService {
     }
 
     public ProductionPlan getPlan(long planId) {
-        return productionPlanRepository.getOne(planId);
+        return productionPlanRepository.findById(planId).get();
     }
 
     public void reviewPlan(long planId, boolean flag) {
