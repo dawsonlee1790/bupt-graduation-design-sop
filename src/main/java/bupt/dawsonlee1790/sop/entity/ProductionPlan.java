@@ -42,7 +42,7 @@ public class ProductionPlan {
 
 
     public void goToNextOrder() throws Exception {
-        if(!isException) throw new Exception("生产批次计划在异常状态，请等待生产责任人处理");
+        if(isException) throw new Exception("生产批次计划在异常状态，请等待生产责任人处理");
         executedOrder = executedOrder.getNext();
         executedOrder.setExecuteTime(new Date());
     }
