@@ -9,16 +9,15 @@ public class MakePlanDTO {
     private long number;
     private Date startDate;
     private Date endDate;
-    private long responsible;
+    private String responsible;
 
-    public long getResponsible() {
+    public String getResponsible() {
         return responsible;
     }
 
-    public void setResponsible(long responsible) {
+    public void setResponsible(String responsible) {
         this.responsible = responsible;
     }
-
 
     public String getPlanName() {
         return planName;

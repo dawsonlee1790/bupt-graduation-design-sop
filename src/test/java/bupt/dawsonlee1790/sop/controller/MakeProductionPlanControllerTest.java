@@ -51,7 +51,7 @@ public class MakeProductionPlanControllerTest {
         makePlanDTO.setEndDate(sdf.parse("2019-04-19"));
         makePlanDTO.setNumber(100);
         makePlanDTO.setPlanName("生产批次1");
-        makePlanDTO.setResponsible(1);
+        makePlanDTO.setResponsible("生产责任人-339");
         put(url, mapper.writeValueAsString(makePlanDTO));
     }
 
