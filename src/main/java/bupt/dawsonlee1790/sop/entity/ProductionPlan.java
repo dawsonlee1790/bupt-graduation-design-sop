@@ -38,11 +38,11 @@ public class ProductionPlan {
     @OneToOne(cascade = CascadeType.ALL)
     private ProductionOrder executedOrder;
 
-    private boolean isExceptioin;
+    private boolean isException;
 
 
     public void goToNextOrder() throws Exception {
-        if(!isExceptioin) throw new Exception("生产批次计划在异常状态，请等待生产责任人处理");
+        if(!isException) throw new Exception("生产批次计划在异常状态，请等待生产责任人处理");
         executedOrder = executedOrder.getNext();
         executedOrder.setExecuteTime(new Date());
     }
@@ -57,7 +57,7 @@ public class ProductionPlan {
         exceptionOrder.setNext(productionOrder);
         executedOrder.setNext(exceptionOrder);
         executedOrder = exceptionOrder;
-        isExceptioin = true;
+        isException = true;
     }
 
     public void handleException(String content,String executorGroup){
@@ -81,7 +81,7 @@ public class ProductionPlan {
 
         executedOrder = handleOrder;
 
-        isExceptioin = false;
+        isException = false;
     }
 
     public enum PlanStatus{
@@ -179,11 +179,11 @@ public class ProductionPlan {
         this.executedOrder = executedOrder;
     }
 
-    public boolean isExceptioin() {
-        return isExceptioin;
+    public boolean isException() {
+        return isException;
     }
 
-    public void setExceptioin(boolean exceptioin) {
-        isExceptioin = exceptioin;
+    public void setException(boolean exception) {
+        isException = exception;
     }
 }
