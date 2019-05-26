@@ -4,8 +4,10 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Assert;
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
@@ -20,6 +22,7 @@ import java.text.SimpleDateFormat;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
+@FixMethodOrder(value = MethodSorters.NAME_ASCENDING)
 public class SopApplicationTests {
 
     @Autowired
@@ -30,7 +33,7 @@ public class SopApplicationTests {
     private ObjectMapper mapper;
 
     // jwt 要实时更新
-    private String JWT = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI2IiwiaXNzIjoiaHR0cDovL3VzZXItZGV2LmRlYnVneWEuY246MzAwODAvVXNlckNvbnRyb2xsZXIvbG9naW4iLCJpYXQiOjE1NTgzNzc5MzIsImV4cCI6MTU1ODM3OTczMiwiSG9zdE5hbWUiOiJ1c2VyLWRldi01Yjg4OWM5Njc2LXdsZmp2IiwiSG9zdEFkZHJlc3MiOiIxMC4yNDQuMy4zNSIsIlJvbGUiOlsiUGxhbm5lciIsIlJlc2VhcmNoZXIiLCJGb3JrbGlmdCIsIldvcmtzaG9wTWFuYWdlciIsIlByb2R1Y3Rpb25MZWFkZXIiXX0.BH1Exedg3Up5ysk3IXY1BkFECsfPEal7-ornrVGf_oVOC9QDg_zTDk3ELknDVGSOMTXbKEgayLbldEWzBM4zfA";
+    private String JWT = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI2IiwiVXNlck5hbWUiOiJhZG1pbiIsImlzcyI6Imh0dHA6Ly91c2VyLWRldi5kZWJ1Z3lhLmNuOjMwMDgwL1VzZXJDb250cm9sbGVyL2xvZ2luIiwiaWF0IjoxNTU4ODY1MDIzLCJleHAiOjE1NTg4NjY4MjMsIkhvc3ROYW1lIjoidXNlci1kZXYtNjk3OTY5ZDg0OS02cnFsOCIsIkhvc3RBZGRyZXNzIjoiMTAuMjQ0LjMuMzkiLCJSb2xlIjpbIlBsYW5uZXIiLCJSZXNlYXJjaGVyIiwiRm9ya2xpZnQiLCJXb3Jrc2hvcE1hbmFnZXIiLCJQcm9kdWN0aW9uTGVhZGVyIl19.v0pRtx5ehcldHhcd4ej_CL-9_Bzjzgzr5l1soi9SZnadNKC7iwtQ0GhOr5U5XqQrqhi_u3Bu8yv-iO6ioncSTg";
 
     @Before
     public void init() {
@@ -38,18 +41,18 @@ public class SopApplicationTests {
         mapper = new ObjectMapper();
     }
 
-    @Test
+//    @Test
     public void contextLoads() throws Exception {
-        this.makeSop();
-        this.makeProductionPlan();
-        this.reviewPlan();
-        this.executeOrder();
-        this.reportException();
-        this.handleException();
+        this.test001MakeSop();
+        this.test002MakeProductionPlan();
+        this.test003ReviewPlan();
+        this.test004ExecuteOrder();
+        this.test005ReportException();
+        this.test006HandleException();
     }
 
-
-    private void makeSop() throws Exception {
+    @Test
+    public void test001MakeSop() throws Exception {
         String url = "/MakeSopController/make";
         //language=JSON
         String content = "{\n" +
@@ -67,8 +70,8 @@ public class SopApplicationTests {
         MvcResult mvcResult = put(url, content);
         Assert.assertEquals(200, mvcResult.getResponse().getStatus());
     }
-
-    private void makeProductionPlan() throws Exception {
+    @Test
+    public void test002MakeProductionPlan() throws Exception {
         String url = "/MakeProductionPlanController/make";
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         //language=JSON
@@ -83,8 +86,8 @@ public class SopApplicationTests {
         MvcResult mvcResult = put(url, content);
         Assert.assertEquals(200, mvcResult.getResponse().getStatus());
     }
-
-    private void reviewPlan() throws Exception {
+    @Test
+    public void test003ReviewPlan() throws Exception {
 //         "/ReviewPlanController/{planId}/review";
         String reviewUrl = "/ReviewPlanController/1/review";
         //language=JSON
@@ -98,8 +101,8 @@ public class SopApplicationTests {
         JsonNode plan = mapper.readTree(responseBody);
         Assert.assertEquals("批准", plan.get("status").asText());
     }
-
-    private void executeOrder() throws Exception {
+    @Test
+    public void test004ExecuteOrder() throws Exception {
         String planListUrl = "/ExecuteOrderController/";
         MvcResult planListResult = get(planListUrl);
         Assert.assertEquals(200, planListResult.getResponse().getStatus());
@@ -109,15 +112,15 @@ public class SopApplicationTests {
         MvcResult executeResult = post(executeOrderUrl, "");
         Assert.assertEquals(200, executeResult.getResponse().getStatus());
     }
-
-    private void reportException() throws Exception {
+    @Test
+    public void test005ReportException() throws Exception {
         String url = "/ReportExceptionController/report/1";
         String content = "车间玉米粉量却100千克";
         MvcResult result = post(url, content);
         Assert.assertEquals(200, result.getResponse().getStatus());
     }
-
-    private void handleException() throws Exception {
+    @Test
+    public void test006HandleException() throws Exception {
         String url = "/HandleExceptionController/1";
         //language=JSON
         String content = "{\n" +
