@@ -26,11 +26,21 @@ public class Sop {
     @OneToOne(cascade = CascadeType.ALL) // 7
     private SopStep startStep;
 
-    @OneToMany(mappedBy = "sop") // 8
+    @OneToMany // 8
     @JsonIgnore // 9
     private List<ProductionPlan> productionPlanList;
 
     //========= setter getter ==========
+
+    private Sop() {
+
+    }
+
+    public Sop(String name, long number, SopStep startStep) {
+        this.name = name;
+        this.number = number;
+        this.startStep = startStep;
+    }
 
     public long getId() {
         return id;

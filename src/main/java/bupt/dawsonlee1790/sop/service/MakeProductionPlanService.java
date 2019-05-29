@@ -32,6 +32,7 @@ public class MakeProductionPlanService {
         productionPlan.setPlanningStartDate(makePlanDTO.getStartDate());
         productionPlan.setPlanningEndDate(makePlanDTO.getEndDate());
         productionPlan.setResponsible(makePlanDTO.getResponsible());
+        productionPlan.setSop(sop);
         productionPlan.setStatus("待审核");
         ProductionOrder startOrder = dfs(sop.getStartStep());
         productionPlan.setStartOrder(startOrder);

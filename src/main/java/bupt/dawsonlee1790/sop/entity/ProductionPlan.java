@@ -31,7 +31,7 @@ public class ProductionPlan {
     private String responsible;
     @OneToOne(cascade = CascadeType.ALL)
     private ProductionOrder startOrder;
-    @OneToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JsonIgnore
     private Sop sop;
 
@@ -41,12 +41,17 @@ public class ProductionPlan {
     private boolean isException;
 
 
-    public void goToNextOrder() throws Exception {
-        if(isException) throw new Exception("生产批次计划在异常状态，请等待生产责任人处理");
-        if(executedOrder == null) executedOrder = startOrder;
-        if(executedOrder.getNext() == null) throw new Exception("生产批次计划已经完成，没有下一个生产指令了");
-        executedOrder = executedOrder.getNext();
+    public void goToNextOrder(String executor) throws Exception {
+        if (isException) throw new Exception("生产批次计划在异常状态，请等待生产责任人处理");
+        if (executedOrder == null) {
+            executedOrder = startOrder;
+        } else if (executedOrder.getNext() == null) {
+            throw new Exception("生产批次计划已经完成，没有下一个生产指令了");
+        } else {
+            executedOrder = executedOrder.getNext();
+        }
         executedOrder.setExecuteTime(new Date());
+        executedOrder.setExecutor(executor);
     }
 
     public void reportException(String operationContent, String executorGroup, String executor) {
@@ -62,7 +67,7 @@ public class ProductionPlan {
         isException = true;
     }
 
-    public void handleException(String content,String executorGroup){
+    public void handleException(String content, String executorGroup) {
         // 生产责任人处理异常的记录
         ProductionOrder handleOrder = new ProductionOrder();
         handleOrder.setOperationContent("处理生产过程异常");
@@ -87,7 +92,7 @@ public class ProductionPlan {
         isException = false;
     }
 
-    public enum PlanStatus{
+    public enum PlanStatus {
         Approve("批准"),
         NotApprove("不批准"),
         WaittingReview("待审核");

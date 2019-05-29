@@ -11,6 +11,16 @@ public class MakePlanDTO {
     private Date endDate;
     private String responsible;
 
+
+    public MakePlanDTO(String planName,long sopId, long number, Date startDate, Date endDate, String responsible) {
+        this.endDate = endDate;
+        this.number = number;
+        this.planName = planName;
+        this.responsible = responsible;
+        this.sopId = sopId;
+        this.startDate = startDate;
+    }
+
     public String getResponsible() {
         return responsible;
     }

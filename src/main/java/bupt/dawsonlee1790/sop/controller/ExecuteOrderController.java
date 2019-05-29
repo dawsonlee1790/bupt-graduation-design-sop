@@ -2,6 +2,7 @@ package bupt.dawsonlee1790.sop.controller;
 
 import bupt.dawsonlee1790.sop.certification.Actor;
 import bupt.dawsonlee1790.sop.certification.Role;
+import bupt.dawsonlee1790.sop.components.User;
 import bupt.dawsonlee1790.sop.entity.ProductionPlan;
 import bupt.dawsonlee1790.sop.service.ExecuteOrderService;
 import io.swagger.annotations.Api;
@@ -20,17 +21,26 @@ public class ExecuteOrderController {
     @Autowired
     private ExecuteOrderService executeOrderService;
 
-    @GetMapping("/")
+    @Autowired
+    private User user;
+
+    @GetMapping
     @Actor({Role.Forklift, Role.WorkshopManager})
     public List<ProductionPlan> getPlanList() {
         return executeOrderService.getPlanList();
+    }
+
+    @GetMapping("/{planId}")
+    @Actor({Role.Forklift, Role.WorkshopManager})
+    public ProductionPlan getPlan(@PathVariable long planId) {
+        return executeOrderService.getPlan(planId);
     }
 
     @PostMapping("/{planId}")
     @Actor({Role.Forklift, Role.WorkshopManager})
     public String executeOrder(@PathVariable("planId") long planId, HttpServletResponse response) {
         try {
-            executeOrderService.executeOrder(planId);
+            executeOrderService.executeOrder(planId, user.getUserName());
             return "";
         } catch (Exception e) {
             response.setStatus(HttpStatus.BAD_REQUEST.value());

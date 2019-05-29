@@ -22,7 +22,7 @@ public class ReviewPlanService {
     }
 
     public void reviewPlan(long planId, boolean flag) {
-        ProductionPlan productionPlan = productionPlanRepository.getOne(planId);
+        ProductionPlan productionPlan = productionPlanRepository.findById(planId).get();
         if (flag) {
             productionPlan.setStatus("批准");
         } else {

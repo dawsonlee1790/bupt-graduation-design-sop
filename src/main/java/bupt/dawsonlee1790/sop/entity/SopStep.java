@@ -21,7 +21,7 @@ public class SopStep {
 
 //  ========getter和setter=========
 
-    public SopStep() {
+    private SopStep() {
     }
 
     public SopStep(String operationContent, String executorGroup, SopStep next) {
