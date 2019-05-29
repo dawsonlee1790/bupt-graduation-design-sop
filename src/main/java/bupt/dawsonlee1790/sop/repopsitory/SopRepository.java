@@ -5,5 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface SopRepository extends JpaRepository<Sop,Long> {
+public interface SopRepository extends JpaRepository<Sop, Long> {
+
+    boolean existsByName(String name);
 }
