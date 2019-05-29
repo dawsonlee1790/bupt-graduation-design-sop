@@ -33,7 +33,8 @@ public class SopApplicationTests {
     private ObjectMapper mapper;
 
     // jwt 要实时更新
-    private String JWT = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI2IiwiVXNlck5hbWUiOiJhZG1pbiIsIlBhc3NXb3JkIjoiMTVlMmIwZDNjMzM4OTFlYmIwZjFlZjYwOWVjNDE5NDIwYzIwZTMyMGNlOTRjNjVmYmM4YzMzMTI0NDhlYjIyNSIsImlzcyI6Imh0dHA6Ly91c2VyLWRldi5kZWJ1Z3lhLmNuOjMwMDgwL1VzZXJDb250cm9sbGVyL2xvZ2luIiwiaWF0IjoxNTU5MTI1NzAwLCJleHAiOjE1NTkxMjc1MDAsIkhvc3ROYW1lIjoidXNlci1kZXYtNWQ2Yzg1NTk1Yi1ncWZiNSIsIkhvc3RBZGRyZXNzIjoiMTAuMjQ0LjEuNDAiLCJSb2xlIjpbIlBsYW5uZXIiLCJSZXNlYXJjaGVyIiwiRm9ya2xpZnQiLCJXb3Jrc2hvcE1hbmFnZXIiLCJQcm9kdWN0aW9uTGVhZGVyIl0sIlJvbGVWaWV3IjpbIuiuoeWIkuS6uiIsIueglOeptuWRmCIsIuWPiei9puW3pSIsIui9pumXtOeuoeeQhuWRmCIsIueUn-S6p-i0n-i0o-S6uiJdfQ.ypk25HMmtFD4XDg68l0dZePIC2FRHSQ1k4hrZ2gRIiOAQTFWeo16YZE99NiRqL1QuES7vsIx1nfOXscg4wYQsw";
+    private String JWT = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI2IiwiVXNlck5hbWUiOiJhZG1pbiIsIlBhc3NXb3JkIjoiMTVlMmIwZDNjMzM4OTFlYmIwZjFlZjYwOWVjNDE5NDIwYzIwZTMyMGNlOTRjNjVmYmM4YzMzMTI0NDhlYjIyNSIsImlzcyI6Imh0dHA6Ly91c2VyLWRldi5kZWJ1Z3lhLmNuOjMwMDgwL1VzZXJDb250cm9sbGVyL2xvZ2luIiwiaWF0IjoxNTU5MTYxNTM0LCJleHAiOjE1NTkxNjMzMzQsIkhvc3ROYW1lIjoidXNlci1kZXYtNWQ2Yzg1NTk1Yi1zdmJjciIsIkhvc3RBZGRyZXNzIjoiMTAuMjQ0LjMuNDEiLCJSb2xlIjpbIlBsYW5uZXIiLCJSZXNlYXJjaGVyIiwiRm9ya2xpZnQiLCJXb3Jrc2hvcE1hbmFnZXIiLCJQcm9kdWN0aW9uTGVhZGVyIl0sIlJvbGVWaWV3IjpbIuiuoeWIkuS6uiIsIueglOeptuWRmCIsIuWPiei9puW3pSIsIui9pumXtOeuoeeQhuWRmCIsIueUn-S6p-i0n-i0o-S6uiJdfQ.RHCpXMKQhT2QPk1jsNCwuNWWnS6B0uI9Oe9hTb-zLB2YQ09vwgicGMyiI2Yk5Pd_8lv_BlMldlxHmnTLglcy7Q";
+
     @Before
     public void init() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
@@ -55,7 +56,7 @@ public class SopApplicationTests {
         String url = "/MakeSopController/make";
         //language=JSON
         String content = "{\n" +
-                "  \"name\": \"NewMedicine\",\n" +
+                "  \"name\": \"OldMedicine\",\n" +
                 "  \"number\": 100,\n" +
                 "  \"startStep\": {\n" +
                 "    \"id\": 1,\n" +
