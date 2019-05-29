@@ -3,6 +3,7 @@ package bupt.dawsonlee1790.sop.controller;
 import bupt.dawsonlee1790.sop.certification.Actor;
 import bupt.dawsonlee1790.sop.certification.Role;
 import bupt.dawsonlee1790.sop.entity.Sop;
+import bupt.dawsonlee1790.sop.exception.BadRequestException;
 import bupt.dawsonlee1790.sop.service.MakeSopService;
 import io.swagger.annotations.Api;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class MakeSopController {
 
     @PutMapping("/make")
     @Actor(Role.Planner)
-    public void makeSop(@RequestBody @Validated Sop sop) {
+    public void makeSop(@RequestBody @Validated Sop sop) throws BadRequestException {
         makeSopService.makeSop(sop);
     }
 
