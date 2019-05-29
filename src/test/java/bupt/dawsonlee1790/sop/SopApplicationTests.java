@@ -33,8 +33,7 @@ public class SopApplicationTests {
     private ObjectMapper mapper;
 
     // jwt 要实时更新
-    private String JWT = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI2IiwiVXNlck5hbWUiOiJhZG1pbiIsImlzcyI6Imh0dHA6Ly91c2VyLWRldi5kZWJ1Z3lhLmNuOjMwMDgwL1VzZXJDb250cm9sbGVyL2xvZ2luIiwiaWF0IjoxNTU4ODY1MDIzLCJleHAiOjE1NTg4NjY4MjMsIkhvc3ROYW1lIjoidXNlci1kZXYtNjk3OTY5ZDg0OS02cnFsOCIsIkhvc3RBZGRyZXNzIjoiMTAuMjQ0LjMuMzkiLCJSb2xlIjpbIlBsYW5uZXIiLCJSZXNlYXJjaGVyIiwiRm9ya2xpZnQiLCJXb3Jrc2hvcE1hbmFnZXIiLCJQcm9kdWN0aW9uTGVhZGVyIl19.v0pRtx5ehcldHhcd4ej_CL-9_Bzjzgzr5l1soi9SZnadNKC7iwtQ0GhOr5U5XqQrqhi_u3Bu8yv-iO6ioncSTg";
-
+    private String JWT = "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiI2IiwiVXNlck5hbWUiOiJhZG1pbiIsIlBhc3NXb3JkIjoiMTVlMmIwZDNjMzM4OTFlYmIwZjFlZjYwOWVjNDE5NDIwYzIwZTMyMGNlOTRjNjVmYmM4YzMzMTI0NDhlYjIyNSIsImlzcyI6Imh0dHA6Ly91c2VyLWRldi5kZWJ1Z3lhLmNuOjMwMDgwL1VzZXJDb250cm9sbGVyL2xvZ2luIiwiaWF0IjoxNTU5MTI1NzAwLCJleHAiOjE1NTkxMjc1MDAsIkhvc3ROYW1lIjoidXNlci1kZXYtNWQ2Yzg1NTk1Yi1ncWZiNSIsIkhvc3RBZGRyZXNzIjoiMTAuMjQ0LjEuNDAiLCJSb2xlIjpbIlBsYW5uZXIiLCJSZXNlYXJjaGVyIiwiRm9ya2xpZnQiLCJXb3Jrc2hvcE1hbmFnZXIiLCJQcm9kdWN0aW9uTGVhZGVyIl0sIlJvbGVWaWV3IjpbIuiuoeWIkuS6uiIsIueglOeptuWRmCIsIuWPiei9puW3pSIsIui9pumXtOeuoeeQhuWRmCIsIueUn-S6p-i0n-i0o-S6uiJdfQ.ypk25HMmtFD4XDg68l0dZePIC2FRHSQ1k4hrZ2gRIiOAQTFWeo16YZE99NiRqL1QuES7vsIx1nfOXscg4wYQsw";
     @Before
     public void init() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
@@ -59,9 +58,11 @@ public class SopApplicationTests {
                 "  \"name\": \"NewMedicine\",\n" +
                 "  \"number\": 100,\n" +
                 "  \"startStep\": {\n" +
+                "    \"id\": 1,\n" +
                 "    \"operationContent\": \"操作1\",\n" +
                 "    \"executorGroup\": \"Forklift\",\n" +
                 "    \"next\": {\n" +
+                "      \"id\": 2,\n" +
                 "      \"operationContent\": \"操作2\",\n" +
                 "      \"executorGroup\": \"WorkshopManager\"\n" +
                 "    }\n" +

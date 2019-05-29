@@ -1,10 +1,13 @@
 package bupt.dawsonlee1790.sop.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 
 @Entity // 1
 @Table(name = "sop_steps")
+@JsonIgnoreProperties(value = {"id"}, allowGetters = true)
 public class SopStep {
 
     @Id // 2
@@ -18,9 +21,10 @@ public class SopStep {
 
 //  ========getter和setter=========
 
-    public SopStep(){}
+    public SopStep() {
+    }
 
-    public SopStep(String operationContent,String executorGroup, SopStep next){
+    public SopStep(String operationContent, String executorGroup, SopStep next) {
         this.executorGroup = executorGroup;
         this.operationContent = operationContent;
         this.next = next;
